@@ -1,0 +1,182 @@
+\documentclass{beamer}
+%
+% Choose how your presentation looks.
+%
+% For more themes, color themes and font themes, see:
+% http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
+%
+\mode<presentation>
+{
+	\usetheme{Warsaw}      % or try Darmstadt, Madrid, Warsaw, ...
+	\usecolortheme{default} % or try albatross, beaver, crane, ...
+	\usefonttheme{default}  % or try serif, structurebold, ...
+	\setbeamertemplate{navigation symbols}{}
+	\setbeamertemplate{caption}[numbered]
+} 
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+
+
+\newtheorem{mydef}{Defini\c{c}\~ao}[section]
+\newtheorem{myex}{Exemplo}[section]
+\newtheorem{teo}{Teorema}[section]
+\newtheorem{lema}[section]{Lema}
+\newtheorem{cor}[section]{Corolário}
+\newtheorem{prop}[section]{Proposição}
+\newtheorem{usos}[section]{Usos}
+
+
+
+\title[Python2]{Introdução à computação científica em economia e finanças em Python}
+\author{Nelson Seixas dos Santos}
+\institute{Faculdade de Ciências Econômicas\\Universidade Federal do Rio Grande do Sul}
+\date{\today}
+
+
+\begin{document}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	% Uncomment these lines for an automatically generated outline.
+	\begin{frame}{Sumário}
+		\tableofcontents
+	\end{frame}
+	
+	
+	
+	\section{Introdução}
+	
+	
+	\section{Equações não lineares}
+	
+	
+	\section{Sistemas Lineares}
+	
+	\section{Mínimos Quadrados Ordinários}
+	
+	\section{Interpolação polinomial}
+	
+	\begin{frame}{Interpolação polinomial}
+		\begin{block}{Problema}
+			Determinar o polinômio P(x) que passa pelos n+1 pontos $(x_0,y_0), (x_1,y_1), (x_2,y_2), ..., (x_{n-1},y_{n-1}), (x_n,y_n)$.
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Solução}
+		Para resolver o problema posto, lembre que a equação geral de um polinômio de n-ésimo grau é dada por:
+		
+		\begin{equation*}
+		P(x)=a_0 + a_1 . x + a_2 . x^2 + ... + a_{n-1} . x^{n-1} + a_n . x^n
+		\end{equation*}
+		
+		Como a equação acima tem  n+1 coeficientes, basta-nos  resolver o sistema linear a seguir:
+		
+		\begin{enumerate}
+			\item $y_0 = P(x_0)$
+			\item $y_1 = P(x_1)$
+			\item ...
+			\item $y_{n-1} = P(x_{n-1})$
+			\item $y_n = P(x_n)$
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		Encontre o polinômio que passa pelos pontos abaixo:
+		\begin{enumerate}
+			\item $(x_0,y_0)=(1,2)$
+			\item $(x_1,y_1)=(3,4)$
+			\item $(x_2,y_2)=(5,6)$
+		\end{enumerate}
+	\end{frame}
+	
+	
+	
+	
+	\begin{frame}{Solução}
+		\begin{equation}\label{eqquad}
+		y=a.x^2+b.x+c
+		\end{equation}
+		Logo, substituindo as coordenadas dos pontos dados na equação (\ref{eqquad}) acima, temos:
+		\begin{displaymath}\left\{
+		\begin{array}{lr}
+		a+b+c & = 2 \\
+		9a+3b+c & = 4 \\
+		25a+5b+c & = 6
+		\end{array}
+		\right.
+		\end{displaymath}
+	\end{frame}
+	
+	\begin{frame}{Scipy}
+		Alternativamente, podemos usar a função de interpolação do pacote Python Scipy
+	\end{frame}
+	
+	\begin{frame}{Exemplo: determinação da estrutura a termo das taxas de juros de uma economia}
+		\begin{block}{Problema}
+			Determinar o polinômio que que liga os pontos \begin{math}
+			(t-t, r_{t,T})
+			\end{math} no plano tempo-taxa.
+		\end{block}
+	\end{frame}
+	
+	
+	
+	
+	
+	
+	
+	\section{Exercícios}
+	
+	
+	
+	\begin{frame}{Menezes (2014, pp.71, 77)}
+		\begin{enumerate}
+			\item Faça um programa que peça dois números inteiros e ponha na tela a soma deles.
+			\item Faça um programa que converta leia um valor em metros e o converta para milímetros
+			\item Faça um programa que pergunte a velocidade do carro do usuários.  Caso ultrapasse 80km/h, exiba uma mensagem dizendo que o usuário foi multado.  Nesse caso, exiba o valor da multa, cobrando R \$ 5,00 por km acima de 80km/h.
+		\end{enumerate}
+	\end{frame}
+	
+	
+	
+	
+	
+	
+	\begin{frame}{Outros exercícios}
+		\begin{enumerate}
+			\item Faça um programa que peça os coeficiente a, b e c de um polinômio de segundo grau e determine as raízes deste polinômio.
+			\item Faça um programa que converta leia um valor em metros e o converta para milímetros
+			\item Faça um programa que pergunte a velocidade do carro do usuário.  Caso ultrapasse 120km/h, exiba uma mensagem dizendo que o usuário foi multado.  Nesse caso, exiba o valor da multa, cobrando R \$ 5,00 por km acima de 120km/h.
+			
+		\end{enumerate}
+		
+	\end{frame}
+	
+	\section{Referências}
+	\begin{frame}{Referências}
+		\begin{itemize}
+			\item \href{http://www.cursou.com.br/informatica/curso-de-phyton/}{Curso de Python}
+			\item \href{https://www.python.org/}{Python Software Foundation}
+			\item \href{https://www.packtpub.com/application-development/python-finance}{Python for Finance}
+			\item \href{http://quant-econ.net/}{Quantitative Economics}
+			\item \textbf{MENEZES}, Nilo Ney C. \textit{Introdução à programação com PYTHON: algoritmos e lógica de programação para iniciantes, 2a. Ed.}  São Paulo: NOVATEC, 2014
+			\item \textbf{FOROUZAN}, B. e \textbf{MOSHARRAF}, F. \textit{Fundamentos da Ciência da Computação. Traduçao da 2a. ed. internacional}. São Paulo: CENGAGE Learning, 2011.
+			\item \href{http://www.sciencedirect.com/science/article/pii/S0022053114001616}{Simpósio de Ciência da computação e Teoria Econômica}
+		\end{itemize}
+	\end{frame}
+	
+	
+	
+	
+	
+\end{document}
