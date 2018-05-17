@@ -79,6 +79,7 @@
 	
 	\section{A biblioteca scipy.linalg}
 	
+	\subsection{Sistemas lineares}
 	\begin{frame}{Sistemas lineares}
 		content...
 	\end{frame}
@@ -92,7 +93,8 @@
 		\end{math}
 		Portanto, a solução é obtida usando as funções inversa e multiplicação matricial.  Em Python: scipy.linalg.inv(A).dot(b)
 	\end{frame}
-		
+	
+	\subsection{Autovetores e autovalores}	
 	\begin{frame}{Autovetores e autovalores}
 		Os autovalores de um operador linear (matriz quadrada) A são as raízes do polinômio característico.  Formalmente:
 		\begin{equation*}
@@ -106,12 +108,13 @@
 		
 	\end{frame}
 	
+		\subsection{Mínimos Quadrados Ordinários}
 	
 	\begin{frame}{Mínimos Quadrados Ordinários}
 		scipy.linalg.lstsq
 	\end{frame}
 	
-	\section{Interpolação polinomial}
+	\subsection{Interpolação polinomial}
 	
 	\begin{frame}{Interpolação polinomial}
 		\begin{block}{Problema}
