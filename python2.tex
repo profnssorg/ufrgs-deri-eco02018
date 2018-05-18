@@ -54,47 +54,170 @@
 	
 	
 	
-	\section{Introdução}
+\section{Introdução}
+\begin{frame}{Introdução}
+\begin{itemize}
+			\item Trata-se aqui da solução de problemas teóricos de economia e finanças cuja solução exige o emprego de recursos computacionais;
+			\item Na prática, as soluções empregadas utilizam métodos do cálculo numérico;
+			\item O cálculo numérico é um conjunto de métodos (algoritmos) para o a determinação de soluções para problemas matemáticos, tais como, determinação de raízes de uma equação, cálculo de derivadas ou de integrais;  
+			\item Os pacotes Python numpy e scipy fornecem rotinas de cálculo numérico que implementam os mais importantes métodos numéricos conhecidos.  
+\end{itemize}
+\end{frame}
 	
 	
-	\section{A biblioteca scipy.optimize}
-
-	\begin{frame}{Equações não lineares}
-		\begin{block}{Problema}
-			Determinar a raiz da equação f(x) = 0 onde f é uma função não linear
-		\end{block}
-		\begin{block}{Soluções}
-			\begin{enumerate}
-				\item método da bissecção
-				\item método da iteração linear
-				\item método de Newton
-				\item método das secantes
-				\item método Regula Falsi
-			\end{enumerate}
-		\end{block}
+	\begin{frame}{O pacote numpy}
+		\begin{itemize}
+			\item O pacote numpy habilita o interpretador python com estruturas de dados e operações sobre estas que serão úteis em cálculo numérico;
+			\item A estrutura de dados fundamental é o numpy array, que basicamente implementa a noção de vetor da álgebra linear;
+			
+		\end{itemize}
 	\end{frame}
-	\begin{frame}{A função root}
+	
+
+\begin{frame}[fragile]{O numpy array: sintaxe}
+\begin{lstlisting}[language=Python]
+import numpy as np
+x = np.array([[1,2,3],[4,5,6]])		
+\end{lstlisting}		
+\end{frame}
+
+\begin{frame}{O pacote scipy}
+	\begin{itemize}
+		\item O pacote \href{https://www.scipy.org/}{scipy} fornece ao Python módulos onde estão implementados os mais importantes métodos numéricos conhecidos na literatura de cálculo numérico;
+		\item Os métodos implementados no scipy são aplicados sobre a estrutura de dados numpy array.  Por isso, para usar o scipy, é preciso ter o numpy instalado;
+		\item Os módulos mais importantes para nosso uso são o scipy.optimize e o scipy.linalg.
+	\end{itemize}
+\end{frame}
+	
+\begin{frame}{A distribuição Anaconda Python}
+	\begin{itemize}
+		 \item Distribuição de pacotes são conjuntos de pacotes que são instalados simultaneamente quando da instalação da distribuição;
+		  
+		 \item A distribuição mais usada em economia e finanças é a \href{https://anaconda.org/anaconda/python}{Anaconda Python} 
+	\end{itemize}
+\end{frame}	
+	
+	
+	
+\section{Equações não lineares}
+
+
+
+	\begin{frame}{Equações não lineares: o problema}
+		\begin{block}{Problema}
+			Seja f uma função não linear.  Determine a solução da equação a seguir:
+			\begin{equation*}
+				f(x) = 0
+			\end{equation*}
+		\end{block}
 		
 	\end{frame}
 	
-	\section{A biblioteca scipy.linalg}
-	
-	\subsection{Sistemas lineares}
-	\begin{frame}{Sistemas lineares}
-		content...
+	\begin{frame}{Algumas soluções clássicas}
+		\begin{enumerate}
+			\item método da bissecção
+			\item método da iteração linear
+			\item método de Newton
+			\item método das secantes
+		\end{enumerate}
 	\end{frame}
 	
-	\begin{frame}{As funções inv e dot}
-		Note que o sistema linear \begin{math}
-			A.x = b
-		\end{math}
-		tem solução dada por \begin{math}
-			x = A^{-1}.b
-		\end{math}
-		Portanto, a solução é obtida usando as funções inversa e multiplicação matricial.  Em Python: scipy.linalg.inv(A).dot(b)
+	\begin{frame}{Exemplo}
+		Resolva a seguinte equação do segundo grau.
+	\begin{equation*}
+	    2.x^2 + 5.x + 3 = 0
+	\end{equation*}
 	\end{frame}
 	
-	\subsection{Autovetores e autovalores}	
+	\begin{frame}{Solução da equação não linear em Python: o módulo scipy.optimize}
+		\begin{itemize}
+			\item O módulo optimize do pacote scipy oferece diversas funções para otimização de funções, isto é, determinação de máximos ou mínimos.
+			\item A solução de uma equação não linear usa métodos numéricos de aproximação onde há minimização do erro. Por isso, é neste módulo que se encontram as funções de solução de equações não lineares.
+			\item A função recomendada para determinar a raiz de uma equação não linear dado um intervalo real [a,b] é optimize.brentq().
+			\item bretq() só encontra raízes se o valor do sinal da função nos extremo inferior do intervalo procurado for diferente do sinal no extremo superior.
+		\end{itemize} 
+	\end{frame}
+	
+\begin{frame}[fragile]{Solução do exemplo em Python}
+		
+\begin{lstlisting}[language=Python]
+#Importacao de pacotes
+from scipy import optimize
+		
+# Entrada da funcao a ser otimizada
+def funcnelquad(x):
+	y = 2*x**2 + 5*x + 3
+	return(y)
+
+# Processamento
+z = optimize.brentq(funcnelquad, -1.5,0)
+
+# Saida
+print(z)
+\end{lstlisting}
+\end{frame}
+
+\section{Álgebra linear}
+	
+
+	\begin{frame}{Sistemas lineares: o problema}
+		Determine a solução do sistema linear a seguir: 
+		\begin{equation}
+		A.x = b
+		\end{equation}
+		onde A é uma matriz \( n \times n \) e x e b são um vetores \(n \times 1 \) 
+		
+	\end{frame}
+	
+	\begin{frame}{Sistema linear: um exemplo}
+		\begin{equation*}\left\{
+		\begin{array}{lr}
+		x+y+z & = 2 \\
+		9x+3y+z & = 4 \\
+		25x+5y+z & = 6
+		\end{array}
+		\right.
+		\end{equation*}
+	\end{frame}
+	
+		\begin{frame}{Sistemas lineares: soluções clássicas}
+			\begin{itemize}
+				\item \(x = A^{-1}.b\) - solução lenta
+				\item triangularizar A por eliminação gaussiana e resolver o sistema de baixo para cima - solução rápida.
+			\end{itemize}
+		\end{frame}
+	
+\begin{frame}[fragile]{Solução do sistema linear em Python: o módulo scipy.linalg}
+	O módulo linalg do pacote Scipy fornece os métodos numéricos para solução de problemas de álgebra linear.  Em particular, temos que:
+		\begin{itemize}
+			\item A primeira solução é obtida em Python scipy.linalg.inv(A) e scipy.dot(b)
+			\item a segunda solução é obtida usando a função linalg.solve(A,b)
+		\end{itemize}
+
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Solução do do exemplo em Python}
+	
+	\begin{lstlisting}[language=Python]
+	#Importacao de pacotes
+	from scipy import linalg
+	
+	# Entrada
+	a = np.array([[1,1,1],[9,3,1],[25,5,1]])
+	b = np.array([2,4,6])
+	
+	# Processamento
+	x = linalg.solve(a, b)
+	
+	# Saida
+	print('O valor de x eh igual a', x)
+	\end{lstlisting}
+	
+\end{frame}
+
 	\begin{frame}{Autovetores e autovalores}
 		Os autovalores de um operador linear (matriz quadrada) A são as raízes do polinômio característico.  Formalmente:
 		\begin{equation*}
@@ -102,19 +225,19 @@
 		\end{equation*}
 		onde I é a matriz identidade de mesma ordem que A.
 		
-		\begin{block}{A função scipy.linalg.elg}
+		\begin{block}{A função scipy.linalg.elg()}
 			Esta função retorna diretamente os autovalores e autovetores de A.
 		\end{block}
 		
 	\end{frame}
 	
-		\subsection{Mínimos Quadrados Ordinários}
+		\section{Outros métodos numéricos importantes}
 	
 	\begin{frame}{Mínimos Quadrados Ordinários}
-		scipy.linalg.lstsq
+		scipy.linalg.lstsq()
 	\end{frame}
 	
-	\subsection{Interpolação polinomial}
+
 	
 	\begin{frame}{Interpolação polinomial}
 		\begin{block}{Problema}
